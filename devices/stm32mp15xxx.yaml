@@ -1,0 +1,624 @@
+_svd: ../svd/stm32mp15xxx.svd
+
+# Rename all the peripherals that have weird names.
+_modify:
+  _peripherals:
+    ADC:
+      name: ADC1
+    DMAMUX1:
+      name: DMAMUX
+    HDMI_CEC:
+      name: CEC
+      description: HDMI-CEC Controller
+    OTGHSFS1:
+      name: OTG
+      description: USB on-the-go high-speed
+    USART1:
+      name: UART1
+    USART2:
+      name: UART2
+      derivedFrom: UART1
+    USART3:
+      name: UART3
+      derivedFrom: UART1
+    UART4:
+      derivedFrom: UART1
+    UART5:
+      derivedFrom: UART1
+    UART6:
+      derivedFrom: UART1
+    UART7:
+      derivedFrom: UART1
+    UART8:
+      derivedFrom: UART1
+
+
+# Make I2C2 depend on I2C1 instead of the other way round.
+_rebase:
+  I2C1: I2C2
+
+ADC1:
+  _add:
+    _interrupts:
+      ADC1:
+        description: ADC1 global interrupt
+        value: 18
+
+ADC2:
+  _add:
+    _interrupts:
+      ADC2:
+        description: ADC2 global interrupt
+        value: 90
+
+CEC:
+  _add:
+    _interrupts:
+      CEC:
+        description: HDMI-CEC global interrupt
+        value: 94
+
+CRYP1:
+  _add:
+    _interrupts:
+      CRYP1:
+        description: CRYP1 global interrupt
+        value: 79
+      CRYP2:
+        description: CRYP2 global interrupt
+        value: 105
+
+DAC1:
+  _add:
+    _interrupts:
+      DAC:
+        description: DAC1 and DAC2 underrun error interrupts
+        value: 132
+
+DCMI:
+  _add:
+    _interrupts:
+      DCMI:
+        description: DCMI global interrupt
+        value: 78
+
+DFSDM1:
+  _add:
+    _interrupts:
+      DFSDM1_FLT0:
+        description: DFSDM1 filter0 Interrupt
+        value: 110
+      DFSDM1_FLT1:
+        description: DFSDM1 filter1 Interrupt
+        value: 111
+      DFSDM1_FLT2:
+        description: DFSDM1 filter2 Interrupt
+        value: 112
+      DFSDM1_FLT3:
+        description: DFSDM1 filter3 Interrupt
+        value: 113
+      DFSDM1_FLT4:
+        description: DFSDM1 filter4 Interrupt
+        value: 115
+      DFSDM1_FLT5:
+        description: DFSDM1 filter5 interrupt - -
+        value: 126
+
+DMA1:
+  _add:
+    _interrupts:
+      DMA1_STR0:
+        description: DMA1 stream0 global interrupt
+        value: 11
+      DMA1_STR1:
+        description: DMA1 stream1 global interrupt
+        value: 12
+      DMA1_STR2:
+        description: DMA1 stream2 global interrupt
+        value: 13
+      DMA1_STR3:
+        description: DMA1 stream3 global interrupt
+        value: 14
+      DMA1_STR4:
+        description: DMA1 stream4 global interrupt
+        value: 15
+      DMA1_STR5:
+        description: DMA1 stream5 global interrupt
+        value: 16
+      DMA1_STR6:
+        description: DMA1 stream6 global interrupt
+        value: 17
+      DMA1_STR7:
+        description: DMA1 stream7 global interrupt
+        value: 47
+      DMA2_STR0:
+        description: DMA2 stream0 global interrupt
+        value: 56
+      DMA2_STR1:
+        description: DMA2 stream1 global interrupt
+        value: 57
+      DMA2_STR2:
+        description: DMA2 stream2 global interrupt
+        value: 58
+      DMA2_STR3:
+        description: DMA2 stream3 global interrupt
+        value: 59
+      DMA2_STR4:
+        description: DMA2 stream4 global interrupt
+        value: 60
+      DMA2_STR5:
+        description: DMA2 stream5 global interrupt
+        value: 68
+      DMA2_STR6:
+        description: DMA2 stream6 global interrupt
+        value: 69
+      DMA2_STR7:
+        description: DMA2 stream7 global interrupt
+        value: 70
+
+DMAMUX:
+  _add:
+    _interrupts:
+      DMAMUX1_OVR_REQ:
+        description: DMAMUX1 overrun interrupt
+        value: 102
+
+DTS:
+  _add:
+    _interrupts:
+      DTS:
+        description: Digital temperature sensor interrupt
+        value: 147
+
+ETH_MAC_MMC:
+  _add:
+    _interrupts:
+      ETH1:
+        description: ETH1 global interrupt
+        value: 61
+  _add:
+    _interrupts:
+      ETH1_WKUP:
+        description: ETH1 wakeup interrupt (PMT)
+        value: 62
+  _add:
+    _interrupts:
+      ETH1_LPI:
+        description: ETH1 LPI interrupt
+        value: 142
+
+EXTI:
+  _delete:
+    _interrupts:
+      - EXTI11
+  _add:
+    _interrupts:
+      EXTI11:
+        description: EXTI line 11 interrupt
+        value: 42
+      MPU_SEV:
+        description: Cortex®-A7 send event through EXTI
+        value: 144
+      MCU_WAKEUP_PIN:
+        description: Interrupt for all 6 wakeup enabled by MCU
+        value: 149
+
+FDCAN1:
+  _add:
+    _interrupts:
+      FDCAN1_IT0:
+        description: FDCAN1 interrupt 0
+        value: 19
+      FDCAN1_IT1:
+        description: FDCAN1 interrupt 1
+        value: 21
+        _add:
+      FDCAN_CAL:
+        description: FDCAN CCU interrupt
+        value: 63
+      FDCAN2_IT0:
+        description: FDCAN2 interrupt 0
+        value: 20
+      FDCAN2_IT1:
+        description: FDCAN2 interrupt 1
+        value: 22
+
+FMC:
+  _add:
+    _interrupts:
+      FMC:
+        description: FMC global interrupt
+        value: 48
+
+  # _add:
+  #   _interrupts:
+  #     FPU:
+  #       description: FPU global interrupt
+  #       value: 81
+
+HASH1:
+  _add:
+    _interrupts:
+      HASH1:
+        description: HASH1 interrupt
+        value: 80
+
+HASH2:
+  _add:
+    _interrupts:
+      HASH2:
+        description: HASH2 interrupt
+        value: 106
+
+HSEM:
+  _add:
+    _interrupts:
+      HSEM_IT2:
+        description: HSEM semaphore interrupt 2
+        value: 125
+
+I2C1:
+  _add:
+    _interrupts:
+      I2C1_EVT:
+        description: I2C1 event interrupt
+        value: 31
+      I2C1_ERR:
+        description: I2C1 global error interrupt
+        value: 32
+      I2C2_EVT:
+        description: I2C2 event interrupt
+        value: 33
+      I2C2_ERR:
+        description: I2C2 global error interrupt
+        value: 34
+      I2C3_EVT:
+        description: I2C3 event interrupt
+        value: 72
+      I2C3_ERR:
+        description: I2C3 error interrupt
+        value: 73
+      I2C4_EVT:
+        description: I2C4 event interrupt
+        value: 95
+      I2C4_ERR:
+        description: I2C4 error interrupt
+        value: 96
+      I2C5_EVT:
+        description: I2C5 event interrupt
+        value: 107
+      I2C5_ERR:
+        description: I2C5 error interrupt
+        value: 108
+      I2C6_EVT:
+        description: I2C6 event interrupt
+        value: 135
+      I2C6_ERR:
+        description: I2C6 error interrupt
+        value: 136
+
+IPCC:
+  _add:
+    _interrupts:
+      IPCC_RX0:
+        description: IPCC RX0 occupied interrupt
+        value: 100
+      IPCC_TX0:
+        description: IPCC TX0 free interrupt
+        value: 101
+      IPCC_RX1:
+        description: IPCC RX1 occupied interrupt
+        value: 103
+      IPCC_TX1:
+        description: IPCC TX1 free interrupt
+        value: 104
+
+  # _add:
+  #   _interrupts:
+  #     LTDC:
+  #       description: LTCD global interrupt
+  #       value: 88
+  # _add:
+  #   _interrupts:
+  #     LTDC_ER:
+  #       description: LTCD global error interrupt
+  #       value: 89
+
+LPTIM1:
+  _add:
+    _interrupts:
+      LPTIM1:
+        description: LPTIMER1 global interrupt
+        value: 93
+
+LPTIM2:
+  _add:
+    _interrupts:
+      LPTIM2:
+        description: LPTIMER2 global interrupt
+        value: 138
+
+LPTIM3:
+  _add:
+    _interrupts:
+      LPTIM3:
+        description: LPTIMER3 global interrupt
+        value: 139
+
+LPTIM4:
+  _add:
+    _interrupts:
+      LPTIM4:
+        description: LPTIMER4 global interrupt
+        value: 140
+
+LPTIM5:
+  _add:
+    _interrupts:
+      LPTIM5:
+        description: LPTIMER5 global interrupt
+        value: 141
+
+MDIOS:
+  _add:
+    _interrupts:
+      MDIOS MDIOS:
+        description: global interrupt
+        value: 120
+
+MDMA:
+  _add:
+    _interrupts:
+      MDMA:
+        description: MDMA global interrupt
+        value: 122
+
+OTG:
+  _add:
+    _interrupts:
+      OTG:
+        description: USB On-The-Go global interrupt
+        value: 98
+
+QUADSPI:      
+  _add:
+    _interrupts:
+      QUADSPI:
+        description: QUADSPI global interrupt
+        value: 92
+
+RNG1:
+  _add:
+    _interrupts:
+      RNG1:
+        description: RNG1 interrupt
+        value: 133
+
+RNG2:
+  _add:
+    _interrupts:
+      RNG2:
+        description: RNG2 interrupt
+        value: 134
+
+SAI1:
+  _add:
+    _interrupts:
+      SAI1:
+        description: SAI1 global interrupt
+        value: 87
+      SAI2:
+        description: SAI2 global interrupt
+        value: 91
+      SAI3:
+        description: SAI3 global interrupt
+        value: 114
+      SAI4:
+        description: SAI4 global interrupt
+        value: 146
+
+SDMMC1:
+  _add:
+    _interrupts:
+      SDMMC1:
+        description: SDMMC global interrupt
+        value: 49
+      SDMMC2:
+        description: SDMMC2 global interrupt
+        value: 124
+      SDMMC3:
+        description: SDMMC global interrupt
+        value: 137
+
+SPDIFRX:
+  _add:
+    _interrupts:
+      SPDIFRX:
+        description: SPDIFRX global interrupt
+        value: 97
+
+SPI1:
+  _add:
+    _interrupts:
+      SPI1:
+        description: SPI1 global interrupt
+        value: 35
+      SPI2:
+        description: SPI2 global interrupt
+        value: 36
+      SPI3:
+        description: SPI3 global interrupt
+        value: 51
+      SPI4:
+        description: SPI4 global interrupt
+        value: 84
+      SPI5:
+        description: SPI5 global interrupt
+        value: 85
+      SPI6:
+        description: SPI6 global interrupt
+        value: 86
+
+TIM1:
+  _add:
+    _interrupts:
+      TIM1_BRK:
+        description: TIM1 break interrupt
+        value: 24
+      TIM1_UP:
+        description: TIM1 update interrupt
+        value: 25
+      TIM1_TRG_COM:
+        description: TIM1 trigger and commutation interrupts
+        value: 26
+      TIM1_CC:
+        description: TIM1 capture compare interrupt
+        value: 27
+
+TIM2:
+  _add:
+    _interrupts:
+      TIM2:
+        description: TIM2 global interrupt
+        value: 28
+
+TIM3:
+  _add:
+    _interrupts:
+      TIM3:
+        description: TIM3 global interrupt
+        value: 29
+  
+TIM4:
+  _add:
+    _interrupts:
+      TIM4:
+        description: TIM4 global interrupt
+        value: 30
+
+TIM5:
+  _add:
+    _interrupts:
+      TIM5:
+        description: TIM5 global interrupt
+        value: 50
+
+TIM6:
+  _add:
+    _interrupts:
+      TIM6:
+        description: TIM6 global interrupt
+        value: 54
+
+TIM7:
+  _add:
+    _interrupts:
+      TIM7:
+        description: TIM7 global interrupt
+        value: 55
+
+TIM8:
+  _add:
+    _interrupts:
+      TIM8_BRK:
+        description: TIM8 break interrupt
+        value: 43
+      TIM8_UP:
+        description: TIM8 update interrupt
+        value: 44
+      TIM8_TRG_COM:
+        description: TIM8 trigger & commutation interrupt
+        value: 45
+      TIM8_CC:
+        description: TIM8 capture compare interrupt
+        value: 46
+
+# TODO: Peripheral missing
+# TIM12:
+#   _add:
+#     _interrupts:
+#       TIM12 TIM12:
+#         description: global interrupt
+#         value: 119
+
+TIM13:
+  _add:
+    _interrupts:
+      TIM13:
+        description: TIM13 global interrupt
+        value: 130
+
+TIM14:
+  _add:
+    _interrupts:
+      TIM14:
+        description: TIM14 global interrupt
+        value: 131
+
+TIM15:
+  _add:
+    _interrupts:
+      TIM15 TIM15:
+        description: global interrupt
+        value: 116
+
+TIM16:
+  _add:
+    _interrupts:
+      TIM16 TIM16:
+        description: global interrupt
+        value: 117
+      TIM17 TIM17:
+        description: global interrupt
+        value: 118
+
+UART1:
+  _add:
+    _interrupts:
+      UART1:
+        description: UART1 global interrupt
+        value: 37
+      UART2:
+        description: UART2 global interrupt
+        value: 38
+      UART3:
+        description: UART3 global interrupt
+        value: 39
+      UART4:
+        description: UART4 global interrupt
+        value: 52
+      UART5:
+        description: UART5 global interrupt
+        value: 53
+      UART6:
+        description: UART6 global interrupt
+        value: 71
+      UART7:
+        description: UART7 global interrupt
+        value: 82
+      UART8:
+        description: UART8 global interrupt
+        value: 83
+
+# TODO: Peripheral missing
+# USBH:
+#   _add:
+#     _interrupts:
+#       USBH_OHCI:
+#         description: USB host OHCI interrupt
+#         value: 74
+#       USBH_EHCI:
+#         description: USB host EHCI Interrupt
+#         value: 75
+
+# TODO: Peripheral?
+  # _add:
+  #   _interrupts:
+  #     nCTIIRQ1:
+  #       description: Cortex®-M4 CTI interrupt 1
+  #       value: 128
+  # _add:
+  #   _interrupts:
+  #     nCTIIRQ2:
+  #       description: Cortex®-M4 CTI interrupt 2
+  #       value: 129
